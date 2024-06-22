@@ -9,6 +9,9 @@ function App() {
 
   const handleSearch = () => {
     setInitialVal(inputTarget.current.value);
+    console.log("The value is stored in ", initialVal);
+    inputTarget.current.value = "";
+    console.log("This is working");
   };
 
   useEffect(() => {
