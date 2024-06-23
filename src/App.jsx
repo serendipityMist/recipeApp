@@ -51,30 +51,33 @@ function App() {
         </button>
       </div>
       {error && <div className="text-red-500">{error}</div>}
+
       {recipeData && recipeData.meals && (
-        <div>
-          {recipeData.meals.map((meal) => (
-            <>
+        <div className=" p-4 mt-1 rounded-md">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {recipeData.meals.map((meal) => (
               <div
                 key={meal.idMeal}
-                className="border border-black rounded-lg my-2  py-4  flex   flex-wrap items-stretch"
+                className="border  rounded-lg overflow-hidden bg-white shadow-md shadow-black flex flex-col"
               >
-                <div className="w-full sm:w-full md:w-1/3 lg:w-1/3 flex ">
+                <div className="flex-shrink-0">
                   <img
                     src={meal.strMealThumb}
                     alt={meal.strMeal}
-                    className="w-full h-full object-cover"
+                    className="w-full h-48 object-cover"
                   />
                 </div>
-                <div className="w-full sm:w-full md:w-2/3 lg:w-2/3 flex flex-col items-center justify-center">
-                  <h1 className="text-xl text-orange-500">
+                <div className="p-4 flex flex-col flex-grow">
+                  <h1 className="text-xl text-orange-500 mb-2 font-bold">
                     Recipe Name: {meal.strMeal}
                   </h1>
-                  <p>Instructions: {meal.strInstructions}</p>
+                  <p className="text-black flex-grow">
+                    Instructions: {meal.strInstructions}
+                  </p>
                 </div>
               </div>
-            </>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </>
