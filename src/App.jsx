@@ -6,7 +6,7 @@ function App() {
   const inputTarget = useRef();
   const [recipeData, setRecipeData] = useState(null);
   const [initialVal, setInitialVal] = useState("");
-
+  const [error, setError] = useState("");
   const handleSearch = () => {
     setInitialVal(inputTarget.current.value);
     console.log("The value is stored in ", initialVal);
@@ -20,7 +20,15 @@ function App() {
         `https://www.themealdb.com/api/json/v1/1/search.php?s=${initialVal}`
       )
         .then((response) => response.json())
-        .then((data) => setRecipeData(data))
+        .then((data) => {
+          if (data.meals) {
+            setRecipeData(data);
+            setError("");
+          } else {
+            setRecipeData(null);
+            setError("No recipes found for the given ingredient.");
+          }
+        })
         .catch((err) => {
           console.log("You are getting this error ", err);
         });
@@ -42,17 +50,28 @@ function App() {
           Search
         </button>
       </div>
+      {error && <div className="text-red-500">{error}</div>}
       {recipeData && recipeData.meals && (
         <div>
           {recipeData.meals.map((meal) => (
             <>
               <div
                 key={meal.idMeal}
-                className="border border-gray-300 rounded-lg p-4 my-2"
+                className="border border-black rounded-lg my-2  py-4  flex   flex-wrap items-stretch"
               >
-                <h1>Recipe Name: {meal.strMeal}</h1>
-                <p>Instructions: {meal.strInstructions}</p>
-                <img src={meal.strMealThumb} alt="Meal" />
+                <div className="w-full sm:w-full md:w-1/3 lg:w-1/3 flex ">
+                  <img
+                    src={meal.strMealThumb}
+                    alt={meal.strMeal}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="w-full sm:w-full md:w-2/3 lg:w-2/3 flex flex-col items-center justify-center">
+                  <h1 className="text-xl text-orange-500">
+                    Recipe Name: {meal.strMeal}
+                  </h1>
+                  <p>Instructions: {meal.strInstructions}</p>
+                </div>
               </div>
             </>
           ))}
