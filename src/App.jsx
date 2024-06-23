@@ -67,6 +67,7 @@ function App() {
                     src={meal.strMealThumb}
                     alt={meal.strMeal}
                     className="w-full h-48 object-cover"
+                    loading="lazy"
                   />
                 </div>
                 <div className="p-4 flex flex-col flex-grow">
