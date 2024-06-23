@@ -26,7 +26,9 @@ function App() {
             setError("");
           } else {
             setRecipeData(null);
-            setError("No recipes found for the given ingredient.");
+            setError(
+              `No recipes found for the given ingredient(${initialVal})`
+            );
           }
         })
         .catch((err) => {
@@ -37,20 +39,20 @@ function App() {
 
   return (
     <>
-      <div className="border border-black rounded-lg w-full p-4">
+      <div className="  rounded-lg w-full p-4 flex justify-center">
         <input
           type="text"
-          className="border border-black rounded-xl text-red-700 pl-1 mr-2"
+          className="border border-black rounded-xl text-red-700 pl-1 mr-2 focus:shadow-md focus-within:border-none"
           ref={inputTarget}
         />
         <button
-          className="border bg-black text-white rounded-lg p-1"
+          className=" bg-red-500 text-white rounded-lg p-1 font-bold "
           onClick={handleSearch}
         >
           Search
         </button>
       </div>
-      {error && <div className="text-red-500">{error}</div>}
+      {error && <div className="text-red-500 text-center">{error}</div>}
 
       {recipeData && recipeData.meals && (
         <div className=" p-4 mt-1 rounded-md">
@@ -68,10 +70,10 @@ function App() {
                   />
                 </div>
                 <div className="p-4 flex flex-col flex-grow">
-                  <h1 className="text-xl text-orange-500 mb-2 font-bold">
+                  <h1 className="text-xl text-orange-500 mb-2 font-bold text-center">
                     Recipe Name: {meal.strMeal}
                   </h1>
-                  <p className="text-black flex-grow">
+                  <p className="text-black flex-grow text-center">
                     Instructions: {meal.strInstructions}
                   </p>
                 </div>
